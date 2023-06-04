@@ -29,6 +29,9 @@ The `PROXY_ROUTES` environment variable is used to configure the routes of the r
 
 Now you can open your browser and visit http://localhost:8080/api and http://localhost:8080/todo to see the result.
 
+> Note: If one route is a prefix of another route, the longer matching route would be used.
+> For example, if we have "/" and "/api" pointing to different backends, visiting "/api" will use the "/api" route.
+
 ## What resources used to build this implementation?
 
 - Golang
