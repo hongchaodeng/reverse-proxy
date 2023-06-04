@@ -4,7 +4,7 @@ This project provides a simple reverse proxy implementation in Go.
 
 ## How to get started with the codebase?
 
-![](doc/demo.gif)
+![](doc/demo2.gif)
 
 Clone the repository to your local machine:
 
@@ -29,6 +29,7 @@ Now you can open your browser and visit http://localhost:8080/api and http://loc
 - Golang
 - Go standard library
 - VSCode IDE
+- (Tutorial only) https://catfact.ninja and https://jsonplaceholder.typicode.com
 
 ## What design decisions I made, including limitations of the system?
 
