@@ -22,6 +22,11 @@ export PROXY_ROUTES="/api:https://catfact.ninja/fact,/todo:https://jsonplacehold
 make run
 ```
 
+The `PROXY_ROUTES` environment variable is used to configure the routes of the reverse proxy:
+
+- /api -> https://catfact.ninja/fact
+- /todo -> https://jsonplaceholder.typicode.com/todos/1
+
 Now you can open your browser and visit http://localhost:8080/api and http://localhost:8080/todo to see the result.
 
 ## What resources used to build this implementation?
