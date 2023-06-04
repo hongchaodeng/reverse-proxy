@@ -20,6 +20,6 @@ clean:
 	rm -f $(BINARY_NAME)
 
 run: build
-	./$(BINARY_NAME) --backend-addr ${BACKEND_ADDR}
+	./$(BINARY_NAME) --routes ${PROXY_ROUTES}
 
 .PHONY: all build test clean run deps

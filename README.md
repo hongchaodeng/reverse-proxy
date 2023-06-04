@@ -18,53 +18,37 @@ Make sure you have Go 1.19+ installed on your machine. If not, please follow the
 Build and run the project:
 
 ```bash
-export BACKEND_ADDR="http://localhost:8000"
+export PROXY_ROUTES="/api:https://catfact.ninja/fact,/todo:https://jsonplaceholder.typicode.com/todos/1"
 make run
 ```
 
-The above is assuming you have a web server running on `http://localhost:8000`.
-In the following we use [docker](https://docs.docker.com/engine/install/) to run a simple web server.
-Note that you can use other methods (e.g. `python -m http.server 8000`) to achieve the same goal.
-
-Open a new terminal, run the following command:
-
-```bash
-docker run -it -p 8000:80 docker/getting-started
-```
-
-Now you can open your browser and visit `http://localhost:8080` to see the result.
+Now you can open your browser and visit http://localhost:8080/api and http://localhost:8080/todo to see the result.
 
 ## What resources used to build this implementation?
 
 - Golang
 - Go standard library
-- Makefile
-- Docker
 - VSCode IDE
 
 ## What design decisions I made, including limitations of the system?
 
-There are a couple of design decisions I made in this project and
-I will explain them in the following with the corresponding limitations.
+There are a couple of design decisions I made in this project and I will explain them in the following.
 
-- **Single backend only**: The program takes only a single backend. Usually a reverse proxy takes multiple backends and
-  routes the requests to the backend based on some routing logic. However, in this project, I only take a single backend
-  and route all the requests to it.
-- **Limited routing logic**: The program routes all requests to a single backend without any routing configuration.
-  Usually a reverse proxy routes requests to different backends based on some routing logic. However, in this project, I
-  implement the simplest version without custom routing.
-- **No middleware support**: The program does not support middleware. Usually a reverse proxy supports middleware
-  (e.g. authentication, authorization, rate limiting, etc.) to provide more functionalities.
-- **No error handling**: The program does not handle errors. Usually a reverse proxy handles errors (e.g. retry, circuit
-  breaker, etc.) to provide more robustness.
+- **No support for WebSocket or other non-http protocol**: The program only supports http protocol. Usually a reverse
+  proxy supports other protocols (e.g. WebSocket, gRPC, etc.) to provide more functionalities.
 - **No security measures**: The program does not provide any security measures (e.g. TLS encryption, authentication,
   authorization, etc.). Usually a reverse proxy provides security measures to protect the backend.
-- **No support for websockets or other non-http protocol**: The program only supports http protocol. Usually a reverse
-  proxy supports other protocols (e.g. websockets, gRPC, etc.) to provide more functionalities.
+- **No error handling**: The program does not handle errors. Usually a reverse proxy handles errors (e.g. retry, circuit
+  breaker, etc.) to provide more robustness.
+- **No middleware support**: The program does not support middleware. Usually a reverse proxy supports middleware
+  (e.g. authentication, authorization, rate limiting, etc.) to provide more functionalities.
+
+Note that the above limitations are not hard to overcome. We can easily add them to the program given more time and effort.
 
 ## How to scale this?
 
-This program is stateless. To scale it, we can deploy multiple instances of it behind a load balancer.
+This program is stateless.
+To scale it, we can deploy multiple instances of it behind a load balancer.
 
 ## How to make it more secure?
 

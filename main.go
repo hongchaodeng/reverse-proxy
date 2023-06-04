@@ -4,22 +4,19 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"net/http"
 
 	"github.com/hongchaodeng/reverse-proxy/pkg/proxy"
 )
 
-var backendAddr string
+var routeStr string
 var port int
 
 func init() {
-	// parse a flag 'backend-addr' which takes a string that indicates the backend address.
-	flag.StringVar(&backendAddr, "backend-addr", "", "backend server address, e.g. http://localhost:8000")
-	// parse a flag 'port' which takes a number that indicates the port to listen on.
+	flag.StringVar(&routeStr, "routes", "/:http://localhost:8080", "comma separated routing rules, each of format $path:$url, e.g. /example:http://api-server:8000")
 	flag.IntVar(&port, "port", 8080, "port to listen on")
 	flag.Parse()
 
-	if backendAddr == "" {
+	if routeStr == "" {
 		log.Fatal("backend-addr flag is required")
 		return
 	}
@@ -27,14 +24,11 @@ func init() {
 
 func main() {
 	// initialize a reverse proxy and pass the actual backend server url here
-	proxy, err := proxy.New(backendAddr)
+	p, err := proxy.New(routeStr)
 	if err != nil {
 		log.Fatalf("failed to initialize proxy: %v", err)
 	}
-	log.Printf("Proxy initialized with backend server: %s\n", backendAddr)
 
-	// handle all requests to your server using the proxy
-	http.HandleFunc("/", proxy.RequestHandler())
-	log.Printf("Starting server on port %d\n", port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
+	addr := fmt.Sprintf(":%d", port)
+	log.Fatal(p.Start(addr))
 }
