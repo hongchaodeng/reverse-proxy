@@ -4,6 +4,8 @@ This project provides a simple reverse proxy implementation in Go.
 
 ## How to get started with the codebase?
 
+![](doc/demo.gif)
+
 Clone the repository to your local machine:
 
 ```bash
